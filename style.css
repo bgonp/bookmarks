@@ -1,0 +1,73 @@
+* {
+	transition: opacity .1s ease;
+}
+#bookmark-form.edit .btn-add,
+#bookmark-form:not(.edit) .btn-edit,
+#bookmark-form:not(.edit) .btn-cancel {
+	display: none;
+}
+#bookmark-container .bookmark-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#bookmark-container .bookmark {
+	position: relative;
+	padding: .75rem;
+	box-shadow: 0 0 10px rgba(0,0,0,.1);
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: .25rem;
+	margin-top: .75rem;
+}
+#bookmark-form.over,
+#bookmark-container .over,
+#bookmark-remove.over {
+	opacity: .6;
+	border-color: #000000;
+	border-style: dashed;
+}
+#bookmark-container .bookmark.no-match {
+	border-color: rgba(0,0,0,0.1);
+}
+#bookmark-container .bookmark.no-match > *:not(.bookmark-list),
+#bookmark-container .bookmark.dragged {
+	opacity: .4;
+}
+#bookmark-container .bookmark .fa {
+	color: #212529;
+}
+#bookmark-container .bookmark .prev {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 100%;
+	height: .75rem;
+	margin-bottom: 1px;
+}
+#bookmark-container .bookmark.list-hidden .bookmark-list {
+	display: none;
+}
+#bookmark-container .bookmark.list-hidden > .slide .fa-sort-desc,
+#bookmark-container .bookmark:not(.list-hidden) > .slide .fa-sort-asc {
+	display: none;
+}
+#bookmark-container .bookmark .titulo {
+    pointer-events: none;
+}
+#bookmark-color-btn {
+	background-color: #EEEEEE;
+}
+#bookmark-color-btn.dark > .fa,
+#bookmark-container .bookmark.dark > .titulo,
+#bookmark-container .bookmark.dark > .slide .fa,
+#bookmark-container .bookmark.dark > .enlace .fa {
+	color: #FFFFFF;
+}
+#bookmark-container .bookmark .enlace,
+#bookmark-container .bookmark .slide {
+    float: right;
+    margin-left: 1rem;
+}
+#bookmark-container .bookmark.folder > .enlace {
+    display: none;
+}
