@@ -51,6 +51,7 @@
 #bookmark-container .bookmark:not(.list-hidden) > .slide .fa-sort-asc {
 	display: none;
 }
+#bookmark-container .bookmark .fa,
 #bookmark-container .bookmark .titulo {
     pointer-events: none;
 }
