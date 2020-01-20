@@ -1,5 +1,12 @@
+/**
+ * Variables globales que guardan referencias a los nodos del DOM que se estén arrastrando o editando.
+ * La variable last lleva un recuento de los bookmarks creados.
+ */
 var dragged, editing, last = 0;
 
+/**
+ * Inicializa el programa. Llama a la creación de todos los event listeners necesarios.
+ */
 function run() {
 	formListeners(document.getElementById('bookmark-form'));
 	listListeners(document.getElementById('bookmark-container'));
@@ -7,6 +14,11 @@ function run() {
 	searchListeners(document.getElementById('bookmark-search'));
 }
 
+/**
+ * Crea los listeners asociados al formulario de creación o edición de bookmarks sobre el elemento
+ * pasado como parámetro.
+ * @param {object} form
+ */
 function formListeners(form) {
 	var title = form.querySelector('#bookmark-title');
 	var url = form.querySelector('#bookmark-url');
@@ -56,6 +68,10 @@ function formListeners(form) {
 	form.querySelector('.btn-cancel').addEventListener('click', (e) => { e.preventDefault(); formReset(form); });
 }
 
+/**
+ * Resetea el formulario de creación o edición de bookmarks sobre el nodo form pasado como parámetro.
+ * @param {object} form
+ */
 function formReset(form) {
 	form.classList.remove('edit');
 	form.reset();
@@ -64,6 +80,11 @@ function formReset(form) {
 	form.querySelector('#bookmark-color-btn').classList.remove('dark');
 }
 
+/**
+ * Crea los listeners asociados a los eventos drag and drop sobre listas de bookmarks.
+ * Actúa sobre el nodo pasado como parámetro siempre que contenga un bookmark-list.
+ * @param {object} element
+ */
 function listListeners(element) {
 	element.addEventListener('dragover', (e) => {
 		if (e.target === element && dragged !== element) {
@@ -84,6 +105,10 @@ function listListeners(element) {
 	});
 }
 
+/**
+ * Crea los listeners asociados al borrado de bookmarks sobre el botón pasado como parámetro.
+ * @param {object} button
+ */
 function removeListeners(button) {
 	button.addEventListener('dragover', (e) => { button.classList.add('over'); e.preventDefault(); });
 	button.addEventListener('dragleave', () => button.classList.remove('over'));
@@ -95,6 +120,10 @@ function removeListeners(button) {
 	button.addEventListener('click', () => alert('Arrastra a este botón un marcador para eliminarlo'));
 }
 
+/**
+ * Crea el listener asociado a la búsqueda sobre el input pasado como parámetro.
+ * @param {object} input
+ */
 function searchListeners(input) {
 	input.addEventListener('keyup', () => {
 		let timeout = setTimeout(() => {
@@ -104,6 +133,11 @@ function searchListeners(input) {
 	});
 }
 
+/**
+ * Filtra los bookmarks que haya en el DOM según el string de búsqueda pasado como parámetro.
+ * Busca tanto en el título como en la descripción del bookmark.
+ * @param {string} search Palabra o palabras claves por las que buscar
+ */
 function filterBookmarks(search) {
 	search = search.toLowerCase();
 	for (let bookmark of document.getElementsByClassName('bookmark')) {
@@ -119,6 +153,13 @@ function filterBookmarks(search) {
 	}
 }
 
+/**
+ * Crea un nuevo nodo bookmark con los datos indicados como parámetros y lo añade al DOM
+ * @param {string} title
+ * @param {string} url
+ * @param {string} color
+ * @param {string} description
+ */
 function createBookmark(title, url, color, description) {
 	var bookmark = document.createElement('li');
 	var prev = document.createElement('div');
@@ -174,6 +215,10 @@ function createBookmark(title, url, color, description) {
 	document.querySelector('#bookmark-container > .bookmark-list').appendChild(bookmark);
 }
 
+/**
+ * Crea todos los listeners asociados a los elementos bookmark sobre el nodo recibido como parámetro
+ * @param {object} bookmark Nodo sobre el que aplicar los listeners
+ */
 function bookmarkListeners(bookmark) {
 	var prev = bookmark.querySelector('.prev');
 	prev.addEventListener('dragover', (e) => {
@@ -219,12 +264,22 @@ function bookmarkListeners(bookmark) {
 	listListeners(bookmark);
 }
 
+/**
+ * Transforma un string con un color en rgb a hexadecimal
+ * @param {string} rgb
+ * @return {string}
+ */
 function toHex(rgb) {
 	var hex = "#";
 	rgb.match(/\d{1,3}/g).map((v) => hex += parseInt(v).toString(16).padStart(2,'0'));
 	return hex;
 }
 
+/**
+ * Calcula si un color representado por un string en hexadecimal es oscuro o no
+ * @param {string} hex
+ * @return {Boolean}
+ */
 function isDark(hex) {
 	var value = 0;
 	hex.match(/[0-9A-F]{1,2}/gi).map((v) => value += parseInt('0x'+v));
