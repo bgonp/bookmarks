@@ -32,7 +32,6 @@ function formListeners(form) {
 			editing.setUrl(url.value);
 			editing.setColor(color.value);
 			editing.setDescription(description.value);
-			editing = null;
 		} else {
 			createBookmark(title.value, url.value, color.value, description.value);
 		}
@@ -76,6 +75,7 @@ function formListeners(form) {
  * @param {object} form
  */
 function formReset(form) {
+	editing = null;
 	form.classList.remove('edit');
 	form.reset();
 	form.querySelector('#bookmark-color').value = '#EEEEEE';
