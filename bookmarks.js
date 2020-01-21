@@ -1,6 +1,6 @@
 /**
  * Variables globales que guardan referencias a los nodos del DOM que se estén arrastrando o editando.
- * La variable last lleva un recuento de los bookmarks creados.
+ * La variable last lleva un recuento de los bookmarks creados para ponerles un ID único.
  */
 var dragged, editing, last = 0;
 
@@ -118,7 +118,10 @@ function removeListeners(button) {
 	button.addEventListener('drop', (e) => {
 		e.preventDefault();
 		button.classList.remove('over');
-		if (confirm('¿Seguro que quieres borrar este marcador?')) dragged.remove();
+		var mensaje = '¿Seguro que quieres borrar este marcador?';
+		if (dragged.querySelector('.bookmark-list').innerHTML !== '')
+			mensaje += ' (también se borrarán todos sus hijos)';
+		if (confirm(mensaje)) dragged.remove();
 	});
 	button.addEventListener('click', () => alert('Arrastra a este botón un marcador para eliminarlo'));
 }
