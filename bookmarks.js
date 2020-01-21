@@ -53,8 +53,11 @@ function formListeners(form) {
 			color.value = dragged.getColor();
 			color.onchange();
 			editing = dragged;
-		} else
-			url.value = e.dataTransfer.getData('text');
+		} else { 
+			let content = e.dataTransfer.getData('text');
+			if (isUrl(content)) url.value = content;
+			else title.value = content;
+		}
 	});
 	color_btn.addEventListener('click', () => color.click());
 	color.onchange = () => {
@@ -265,6 +268,15 @@ function bookmarkListeners(bookmark) {
 }
 
 /**
+ * Comprueba si el texto pasado como parámetro es una URL.
+ * @param {string} content
+ * @return {bool}
+ */
+function isUrl(content) {
+	return content.test(/^http(s)?:\/\/.+\..+$/g);
+}
+
+/**
  * Transforma un string con un color en rgb a hexadecimal
  * @param {string} rgb
  * @return {string}
@@ -278,7 +290,7 @@ function toHex(rgb) {
 /**
  * Calcula si un color representado por un string en hexadecimal es oscuro o no
  * @param {string} hex
- * @return {Boolean}
+ * @return {bool}
  */
 function isDark(hex) {
 	var value = 0;
