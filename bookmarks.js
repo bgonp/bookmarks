@@ -273,7 +273,7 @@ function bookmarkListeners(bookmark) {
  * @return {bool}
  */
 function isUrl(content) {
-	return content.test(/^http(s)?:\/\/.+\..+$/g);
+	return /^http(s)?:\/\/.+(\..+)+$/.test(content);
 }
 
 /**
