@@ -1,8 +1,8 @@
 /**
- * Variables globales que guardan referencias a los nodos del DOM que se estén arrastrando o editando.
+ * La variable editing guarda la referencias al nodo del DOM que se este editando en el form.
  * La variable last lleva un recuento de los bookmarks creados para ponerles un ID único.
  */
-var dragged, editing, last = 0;
+let editing, last = 0;
 
 /**
  * Inicializa el programa. Llama a la creación de todos los event listeners necesarios.
@@ -20,11 +20,11 @@ function run() {
  * @param {object} form
  */
 function formListeners(form) {
-	var title = form.querySelector('#bookmark-title');
-	var url = form.querySelector('#bookmark-url');
-	var color = form.querySelector('#bookmark-color');
-	var color_btn = form.querySelector('#bookmark-color-btn');
-	var description = form.querySelector('#bookmark-description');
+	const title = form.querySelector('#bookmark-title');
+	const url = form.querySelector('#bookmark-url');
+	const color = form.querySelector('#bookmark-color');
+	const color_btn = form.querySelector('#bookmark-color-btn');
+	const description = form.querySelector('#bookmark-description');
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		if (editing) {
@@ -44,16 +44,17 @@ function formListeners(form) {
 	form.addEventListener('drop', (e) => {
 		e.preventDefault();
 		form.classList.remove('over');
+		const dragged = getDragged(e);
 		if (dragged) {
-			form.classList.add('edit');
-			title.value = dragged.getTitle();
-			url.value = dragged.getUrl();
-			description.value = dragged.getDescription();
-			color.value = dragged.getColor();
-			color.onchange();
 			editing = dragged;
+			form.classList.add('edit');
+			title.value = editing.getTitle();
+			url.value = editing.getUrl();
+			description.value = editing.getDescription();
+			color.value = editing.getColor();
+			color.onchange();
 		} else { 
-			let content = e.dataTransfer.getData('text');
+			const content = e.dataTransfer.getData('text');
 			if (isUrl(content)) url.value = content;
 			else title.value = content;
 		}
@@ -90,7 +91,7 @@ function formReset(form) {
  */
 function listListeners(element) {
 	element.addEventListener('dragover', (e) => {
-		if (e.target === element && dragged !== element) {
+		if (e.target === element && getDragged(e) !== element) {
 			element.classList.add('over');
 			e.preventDefault();
 		}
@@ -99,7 +100,8 @@ function listListeners(element) {
 	element.addEventListener('drop', (e) => {
 		e.preventDefault();
 		element.classList.remove('over');
-		if (e.target === element && dragged !== element)
+		const dragged = getDragged(e);
+		if (dragged && e.target === element && dragged !== element)
 			try {
 				element.querySelector('.bookmark-list').appendChild(dragged);
 			} catch (e) {
@@ -118,7 +120,8 @@ function removeListeners(button) {
 	button.addEventListener('drop', (e) => {
 		e.preventDefault();
 		button.classList.remove('over');
-		var mensaje = '¿Seguro que quieres borrar este marcador?';
+		const dragged = getDragged(e);
+		let mensaje = '¿Seguro que quieres borrar este marcador?';
 		if (dragged.querySelector('.bookmark-list').innerHTML !== '')
 			mensaje += ' (también se borrarán todos sus hijos)';
 		if (confirm(mensaje)) dragged.remove();
@@ -132,7 +135,7 @@ function removeListeners(button) {
  */
 function searchListeners(input) {
 	input.addEventListener('keyup', () => {
-		let timeout = setTimeout(() => {
+		const timeout = setTimeout(() => {
 			clearTimeout(timeout);
 			filterBookmarks(input.value);
 		}, 200);
@@ -167,12 +170,12 @@ function filterBookmarks(search) {
  * @param {string} description
  */
 function createBookmark(title, url, color, description) {
-	var bookmark = document.createElement('li');
-	var prev = document.createElement('div');
-	var name = document.createElement('span');
-	var link = document.createElement('a');
-	var slide = document.createElement('a');
-	var list = document.createElement('ul');
+	const bookmark = document.createElement('li');
+	const prev = document.createElement('div');
+	const name = document.createElement('span');
+	const link = document.createElement('a');
+	const slide = document.createElement('a');
+	const list = document.createElement('ul');
 
 	bookmark.appendChild(prev);
 	bookmark.appendChild(link);
@@ -226,37 +229,35 @@ function createBookmark(title, url, color, description) {
  * @param {object} bookmark Nodo sobre el que aplicar los listeners
  */
 function bookmarkListeners(bookmark) {
-	var prev = bookmark.querySelector('.prev');
+	const prev = bookmark.querySelector('.prev');
 	prev.addEventListener('dragover', (e) => {
 		if (e.target === prev) {
-			var parent = bookmark.parentNode.closest('.bookmark');
+			const parent = bookmark.parentNode.closest('.bookmark');
 			if (parent) parent.classList.add('over');
 			e.preventDefault();
 		}
 	});
 	prev.addEventListener('dragleave', () => {
-		var parent = bookmark.parentNode.closest('.bookmark');
+		const parent = bookmark.parentNode.closest('.bookmark');
 		if (parent) parent.classList.remove('over');
 	});
 	prev.addEventListener('drop', (e) => {
 		e.preventDefault();
 		if (e.target === prev) {
-			var parent = bookmark.parentNode.closest('.bookmark');
+			const parent = bookmark.parentNode.closest('.bookmark');
 			if (parent) parent.classList.remove('over');
-			bookmark.parentNode.insertBefore(dragged, bookmark);
+			bookmark.parentNode.insertBefore(getDragged(e), bookmark);
 		}
 	});
 	bookmark.addEventListener('dragstart', (e) => {
 		if (e.target === bookmark) {
-			dragged = bookmark;
 			bookmark.classList.add('dragged');
+			e.dataTransfer.setData('dragged_id', bookmark.id);
 		}
 	});
 	bookmark.addEventListener('dragend', (e) => {
-		if (e.target === bookmark) {
-			dragged = null;
+		if (e.target === bookmark)
 			bookmark.classList.remove('dragged');
-		}
 	});
 	bookmark.addEventListener('click', (e) => {
 		if (e.target === bookmark)
@@ -268,6 +269,17 @@ function bookmarkListeners(bookmark) {
 		else bookmark.classList.add('list-hidden');
 	});
 	listListeners(bookmark);
+}
+
+/**
+ * Devuelve el elemento draggeado o false si no se esta arrastrando un bookmark
+ * @param  {object} event
+ * @return {object|bool}
+ */
+function getDragged(event) {
+	const dragged_id = event.dataTransfer.getData('dragged_id');
+	if (dragged_id) return document.getElementById(dragged_id);
+	return false;
 }
 
 /**
@@ -285,8 +297,8 @@ function isUrl(content) {
  * @return {string}
  */
 function toHex(rgb) {
-	var hex = "#";
-	rgb.match(/\d{1,3}/g).map((v) => hex += parseInt(v).toString(16).padStart(2,'0'));
+	let hex = '#';
+	rgb.match(/\d{1,3}/g).forEach((color) => hex += parseInt(color).toString(16).padStart(2,'0'));
 	return hex;
 }
 
@@ -296,9 +308,9 @@ function toHex(rgb) {
  * @return {bool}
  */
 function isDark(hex) {
-	var value = 0;
-	hex.match(/[0-9A-F]{1,2}/gi).map((v) => value += parseInt('0x'+v));
-	return value < 512;
+	let suma = 0;
+	hex.match(/[0-9A-F]{1,2}/gi).forEach((color) => suma += parseInt('0x'+color));
+	return suma < 512;
 }
 
 window.onload = run;
