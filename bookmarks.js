@@ -297,9 +297,7 @@ function isUrl(content) {
  * @return {string}
  */
 function toHex(rgb) {
-	let hex = '#';
-	rgb.match(/\d{1,3}/g).forEach((color) => hex += parseInt(color).toString(16).padStart(2,'0'));
-	return hex;
+	return rgb.match(/\d{1,3}/g).reduce((hex, color) => hex + parseInt(color).toString(16).padStart(2,'0'), '#');
 }
 
 /**
@@ -308,9 +306,7 @@ function toHex(rgb) {
  * @return {bool}
  */
 function isDark(hex) {
-	let suma = 0;
-	hex.match(/[0-9A-F]{1,2}/gi).forEach((color) => suma += parseInt('0x'+color));
-	return suma < 512;
+	return 512 > hex.match(/[0-9A-F]{1,2}/gi).reduce((suma, color) => suma + parseInt('0x'+color), 0);
 }
 
 window.onload = run;
