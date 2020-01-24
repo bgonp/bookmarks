@@ -48,8 +48,8 @@
 #bookmark-container .bookmark.list-hidden .bookmark-list {
 	display: none;
 }
-#bookmark-container .bookmark.list-hidden > .slide .fa-sort-desc,
-#bookmark-container .bookmark:not(.list-hidden) > .slide .fa-sort-asc {
+#bookmark-container .bookmark.list-hidden > .slide .fa-sort-asc,
+#bookmark-container .bookmark:not(.list-hidden) > .slide .fa-sort-desc {
 	display: none;
 }
 #bookmark-container .bookmark .fa,
@@ -68,7 +68,8 @@
 #bookmark-container .bookmark .enlace,
 #bookmark-container .bookmark .slide {
     float: right;
-    margin-left: 1rem;
+    padding: 0 .5rem;
+    margin: 0 -.5rem 0 .5rem;
 }
 #bookmark-container .bookmark.folder > .enlace {
     display: none;
