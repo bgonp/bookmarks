@@ -1,34 +1,37 @@
-window.onload = () => {
-	run();
-	createBookmark('Web de memes', 'http://google.com', '#007bff', 'Descripción del enlace');
-	createBookmark('Bacalao al pilpil', 'http://google.com', '#6c757d', 'Receta rica y con fundamento');
-	createBookmark('JavaScript', 'http://javascript.com', '#17a2b8', 'Lenguaje principalmente enfocado al front end');
-	createBookmark('Libros', '', '#ffc107', 'Libros sobre JavaScript');
-	createBookmark('Vídeos', '', '#dc3545', 'Videos sobre JavaScript');
-	createBookmark('Primeros pasos en JavaScript', 'http://google.com', '#eeeeee', '');
-	createBookmark('JavaScript en el lado del servidor', 'http://google.com', '#eeeeee', 'NodeJS');
-	createBookmark('Ser MEAN stack y no morir en el intento', 'http://google.com', '#eeeeee', 'MongoDB, express, Angular, NodeJS');
-	createBookmark('React vs Angular vs Vue', 'http://google.com', '#eeeeee', 'Ventajas e inconvenientes de los principales frameworks/librerías');
-	createBookmark('¿Qué es el DOM?', 'http://google.com', '#eeeeee', '');
-	createBookmark('PHP', '', '#28a745', 'Lenguaje backend');
-	createBookmark('PHP orientado a objetos', 'http://google.com', '#eeeeee', '');
-	createBookmark('¿Por qué usar PDO para conectar a tu base de datos', 'http://google.com', '#eeeeee', 'Ventajas de usar PDO en vez de mysqli');
-	createBookmark('Symfony v2', 'http://google.com', '#eeeeee', 'Principal framework de PHP');
-	createBookmark('ORM: Doctrine', 'http://google.com', '#eeeeee', 'Object Relational Mapping');
-	createBookmark('Proyecto desde cero usando MVC', 'http://google.com', '#eeeeee', 'Un ejemplo paso a paso usando este patrón de diseño');
-	document.querySelector('#bookmark-3 > .bookmark-list').appendChild(document.getElementById('bookmark-4'));
-	document.querySelector('#bookmark-3 > .bookmark-list').appendChild(document.getElementById('bookmark-5'));
-	document.querySelector('#bookmark-4 > .bookmark-list').appendChild(document.getElementById('bookmark-7'));
-	document.querySelector('#bookmark-4 > .bookmark-list').appendChild(document.getElementById('bookmark-8'));
-	document.querySelector('#bookmark-4 > .bookmark-list').appendChild(document.getElementById('bookmark-10'));
-	document.querySelector('#bookmark-5 > .bookmark-list').appendChild(document.getElementById('bookmark-6'));
-	document.querySelector('#bookmark-5 > .bookmark-list').appendChild(document.getElementById('bookmark-9'));
-	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-12'));
-	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-13'));
-	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-14'));
-	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-15'));
-	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-16'));
-	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-16'));
-	document.querySelector('#bookmark-3 > .slide').click();
-	document.querySelector('#bookmark-11 > .slide').click();
-};
+const loadDummy = () => {
+	createBookmark('Web genérica', 'http://google.com', '#007bff', 'Descripción de la web genérica')
+	createBookmark('Web específica', 'http://google.com', '#6c757d', 'Descripción de la web específica')
+	createBookmark('JavaScript', 'http://javascript.com', '#17a2b8', 'Lenguaje principalmente enfocado al front end')
+	createBookmark('Libros', '', '#ffc107', 'Libros sobre JavaScript')
+	createBookmark('Vídeos', '', '#dc3545', 'Videos sobre JavaScript')
+	createBookmark('Primeros pasos en JavaScript', 'http://google.com', '#eeeeee', '')
+	createBookmark('JavaScript en el lado del servidor', 'http://google.com', '#eeeeee', 'NodeJS')
+	createBookmark('Ventajas de stack MEAN y MERN', 'http://google.com', '#eeeeee', 'MongoDB, express, Angular, React, NodeJS')
+	createBookmark('React vs Angular vs Vue', 'http://google.com', '#eeeeee', 'Ventajas e inconvenientes de los principales frameworks/librerías')
+	createBookmark('¿Qué es el DOM?', 'http://google.com', '#eeeeee', '')
+	createBookmark('PHP', '', '#28a745', 'Lenguaje backend')
+	createBookmark('Novedades de PHP 7.4', 'http://google.com', '#eeeeee', '')
+	createBookmark('PDO para conectar a tu base de datos', 'http://google.com', '#eeeeee', 'Ventajas de usar PDO en vez de mysqli')
+	createBookmark('Symfony 5', 'http://google.com', '#eeeeee', 'Principal framework de PHP')
+	createBookmark('ORM: Doctrine', 'http://google.com', '#eeeeee', 'Object Relational Mapping')
+	createBookmark('Proyecto desde cero usando MVC', 'http://google.com', '#eeeeee', 'Un ejemplo paso a paso usando este patrón de diseño')
+
+	document.querySelector('#bookmark-3 > .bookmark-list').appendChild(document.getElementById('bookmark-4'))
+	document.querySelector('#bookmark-3 > .bookmark-list').appendChild(document.getElementById('bookmark-5'))
+	document.querySelector('#bookmark-4 > .bookmark-list').appendChild(document.getElementById('bookmark-7'))
+	document.querySelector('#bookmark-4 > .bookmark-list').appendChild(document.getElementById('bookmark-8'))
+	document.querySelector('#bookmark-4 > .bookmark-list').appendChild(document.getElementById('bookmark-10'))
+	document.querySelector('#bookmark-5 > .bookmark-list').appendChild(document.getElementById('bookmark-6'))
+	document.querySelector('#bookmark-5 > .bookmark-list').appendChild(document.getElementById('bookmark-9'))
+	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-12'))
+	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-13'))
+	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-14'))
+	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-15'))
+	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-16'))
+	document.querySelector('#bookmark-11 > .bookmark-list').appendChild(document.getElementById('bookmark-16'))
+
+	document.getElementById('bookmark-3').classList.add('has-children')
+	document.getElementById('bookmark-4').classList.add('has-children')
+	document.getElementById('bookmark-5').classList.add('has-children')
+	document.getElementById('bookmark-11').classList.add('has-children')
+}

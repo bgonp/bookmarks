@@ -48,8 +48,9 @@
 #bookmark-container .bookmark.list-hidden .bookmark-list {
 	display: none;
 }
-#bookmark-container .bookmark.list-hidden > .slide .fa-sort-asc,
-#bookmark-container .bookmark:not(.list-hidden) > .slide .fa-sort-desc {
+#bookmark-container .bookmark.list-hidden > .slide .fa-sort-desc,
+#bookmark-container .bookmark:not(.list-hidden) > .slide .fa-sort-asc,
+#bookmark-container .bookmark:not(.has-children) > .slide {
 	display: none;
 }
 #bookmark-container .bookmark .fa,

@@ -1,37 +1,45 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content= "width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Bookmarks</title>
-	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="style.css">
 	<script src="bookmarks.js"></script>
-	<!--<script src="dummy.js"></script>-->
+	<script src="dummy.js"></script>
 </head>
+
 <body>
 	<div class="container my-5">
 		<div class="row">
-			<div class="col-12"><h2 class="text-center">Gestor de marcadores</h2></div>
+			<div class="col-12">
+				<h2 class="text-center">Gestor de marcadores</h2>
+			</div>
 			<div class="col-12 col-lg-6 pt-3">
 				<form action="" id="bookmark-form" class="card p-3 shadow">
 					<div class="form-group">
 						<label for="bookmark-title">Título</label>
-						<input type="text" id="bookmark-title" class="form-control" required="required">
+						<input type="text" id="bookmark-title" name="title" class="form-control" required="required">
 					</div>
 					<div class="form-group">
 						<label for="bookmark-url">URL</label>
-						<input type="url" id="bookmark-url" class="form-control">
+						<input type="url" id="bookmark-url" name="url" class="form-control">
 					</div>
 					<div class="form-group">
 						<label for="bookmark-color">Color</label>
-						<button type="button" id="bookmark-color-btn" class="form-control"><i class="fa fa-paint-brush"></i></button>
-						<input type="color" id="bookmark-color" class="form-control d-none" value="#EEEEEE">
+						<button type="button" id="bookmark-color-btn" class="form-control"><i
+								class="fa fa-paint-brush"></i></button>
+						<input type="color" id="bookmark-color" name="color" class="form-control d-none"
+							value="#EEEEEE">
 					</div>
 					<div class="form-group">
 						<label for="bookmark-description">Descripción</label>
-						<textarea id="bookmark-description" class="form-control" rows="2"></textarea>
+						<textarea id="bookmark-description" name="description" class="form-control" rows="2"></textarea>
 					</div>
 					<div class="row">
 						<div class="col-12">
@@ -49,12 +57,16 @@
 			<div class="col-12 col-lg-6 pt-3">
 				<div id="bookmark-container" class="card pt-0 pb-3 px-3 mb-3 shadow">
 					<div class="mt-3">Marcadores</div>
-					<input type="text" id="bookmark-search" class="form-control mt-2" placeholder="Filtrar..." title="Filtra por título y descripción">
+					<input type="text" id="bookmark-search" class="form-control mt-2" placeholder="Filtrar..."
+						title="Filtra por título y descripción">
 					<ul class="bookmark-list"></ul>
+					<a href="#" id="load-dummy-data" class="btn btn-block btn-warning mt-3">Cargar datos de prueba</a>
 				</div>
-				<button id="bookmark-remove" class="btn btn-block btn-danger shadow"><i class="fa fa-trash"></i></button>
+				<button id="bookmark-remove" class="btn btn-block btn-danger shadow"><i
+						class="fa fa-trash"></i></button>
 			</div>
 		</div>
 	</div>
 </body>
+
 </html>
