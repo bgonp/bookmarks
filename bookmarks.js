@@ -1,4 +1,5 @@
 /**
+ * La variable form guarda la referencia al formulario de edición/creación.
  * La variable editing guarda la referencias al nodo del DOM que se este editando en el form.
  * La variable last lleva un recuento de los bookmarks creados para ponerles un ID único.
  */
